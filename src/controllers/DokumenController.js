@@ -27,13 +27,20 @@ exports.getDokumenById = async (req, res) => {
 exports.createDokumen = async (req, res) => {
 	try {
 		const { noPin, nama, branch, status, gudang, rak_aplikasi } = req.body;
-		let filePath = null;
 
+		// Cek dan buat folder jika tidak ada
+		const uploadDir = path.join(__dirname, '../public/uploads');
+		if (!fs.existsSync(uploadDir)) {
+			fs.mkdirSync(uploadDir, { recursive: true });
+			console.log('📁 Folder "public/uploads" dibuat.');
+		}
+
+		let filePath = null;
 		if (req.file) {
 			filePath = `/uploads/${req.file.filename}`;
 		}
 
-		await DokumenModel.create({
+		const newDokumen = {
 			noPin,
 			nama,
 			branch,
@@ -41,9 +48,10 @@ exports.createDokumen = async (req, res) => {
 			gudang,
 			rak_aplikasi,
 			file_path: filePath,
-		});
+		};
 
-		res.status(201).json({ message: 'Dokumen berhasil disimpan' });
+		const insertId = await DokumenModel.create(newDokumen);
+		res.status(201).json({ message: 'Dokumen berhasil disimpan', insertId });
 	} catch (error) {
 		res.status(500).json({ message: 'Gagal menyimpan dokumen', error });
 	}
@@ -88,7 +96,6 @@ exports.deleteDokumen = async (req, res) => {
 			return res.status(404).json({ message: 'Dokumen tidak ditemukan' });
 		}
 
-		// Hapus file jika ada
 		if (existingDokumen[0].file_path) {
 			const filePath = path.join(
 				__dirname,

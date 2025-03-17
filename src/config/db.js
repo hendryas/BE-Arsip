@@ -1,7 +1,6 @@
 const knex = require('knex');
-require('dotenv').config(); // Load konfigurasi dari .env
+require('dotenv').config();
 
-// Konfigurasi Knex.js untuk MySQL
 const db = knex({
 	client: 'mysql2',
 	connection: {
@@ -13,7 +12,6 @@ const db = knex({
 	pool: { min: 2, max: 10 },
 });
 
-// Cek koneksi ke database
 db.raw('SELECT 1')
 	.then(() => console.log('✅ Koneksi ke MySQL berhasil!'))
 	.catch((err) => {

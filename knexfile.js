@@ -3,12 +3,12 @@
  */
 module.exports = {
 	development: {
-		client: 'mysql2', // Gunakan mysql2 untuk koneksi ke MySQL
+		client: 'mysql2',
 		connection: {
-			host: '127.0.0.1', // Host database (localhost atau IP server)
-			user: 'root', // Username MySQL
-			password: '', // Ganti dengan password MySQL Anda
-			database: 'dokumen_db', // Nama database
+			host: '127.0.0.1',
+			user: 'root',
+			password: '',
+			database: 'dokumen_db',
 		},
 		pool: {
 			min: 2,
@@ -25,7 +25,7 @@ module.exports = {
 		connection: {
 			host: '127.0.0.1',
 			user: 'root',
-			password: '',
+			password: 'masamune',
 			database: 'dokumen_db',
 		},
 		pool: {
@@ -42,7 +42,7 @@ module.exports = {
 		connection: {
 			host: '127.0.0.1',
 			user: 'root',
-			password: '',
+			password: 'masamune',
 			database: 'dokumen_db',
 		},
 		pool: {
